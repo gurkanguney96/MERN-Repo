@@ -1,0 +1,65 @@
+TERRAFORM STEPS
+
+- Terraform Server Connection to GCP
+
+gcloud auth login
+gcloud config set project [your-project-id]
+
+
+- Service Account Create
+
+gcloud iam service-accounts create terraform-sa \
+    --description="Terraform için hizmet hesabı" \
+    --display-name="Terraform Service Account"
+
+- Service Account Role
+
+gcloud projects add-iam-policy-binding my-project-name \
+    --member="serviceAccount:terraform-sa@<my-project-name>.iam.gserviceaccount.com" \
+    --role="roles/owner"
+
+
+- Service Account Key File
+
+gcloud iam service-accounts keys create ~/terraform-key.json \
+    --iam-account=terraform-sa@<my-project-name>.gserviceaccount.com
+
+- Add VPC Subnets
+
+gcloud compute networks subnets update default \
+  --region=europe-west1 \
+  --add-secondary-ranges=pods-range=10.20.0.0/16,services-range=10.30.0.0/20
+
+
+DEPLOYMENT STEPS
+
+I prepared Dockerfiles, deployment.yaml, azure-pipeline.yaml files(for CI/CD).
+
+
+MONGODB STEPS
+
+I added deployment yaml file for mongodb installation.
+
+
+MONITORING STEPS
+
+I used helm chart and installed Grafana and Loki for logging system so I saw logs of pods. 
+I added Grafana image to file.
+
+
+
+SUMMARY
+
+I deployed all components. I have experience Kubernetes, cloud platforms, CI/CD processes and monitoring processes but I do not have react and nodejs coding. You can see output images in file. The web app does not work complately because I do not have enough time. Also I work at the same time.
+I am man of duty and I love learning. I hope we can meet again. Thank you for your time. Have a nice day.
+
+
+
+
+
+
+
+
+
+
+
